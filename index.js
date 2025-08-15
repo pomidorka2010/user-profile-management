@@ -18,7 +18,8 @@ mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTop
 // Middleware for handling errors
 app.use((err, req, res, next) => {
   console.error(err.stack);
-  res.status(500).send('Something broke!');
+  // Send error message to the client
+  res.status(500).json({ message: 'Something broke!', error: err.message });
 });
 
 app.use('/api', authRoutes);
